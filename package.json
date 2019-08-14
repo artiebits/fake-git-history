@@ -1,0 +1,28 @@
+{
+  "name": "fake-git-history",
+  "version": "0.0.0",
+  "description": "fake commit history",
+  "main": "index.js",
+  "bin": "./cli.js",
+  "repository": "git@github.com:artiebits/fake-git-history.git",
+  "author": "artiebits <artur.khusaenov@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node cli.js",
+    "lint": "eslint index.js cli.js"
+  },
+  "dependencies": {
+    "chalk": "2.4.2",
+    "date-fns": "1.30.1",
+    "meow": "5.0.0",
+    "ora": "3.4.0"
+  },
+  "devDependencies": {
+    "eslint": "6.1.0",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-prettier": "3.1.0",
+    "eslint-plugin-react": "7.14.3",
+    "prettier": "1.18.2"
+  }
+}
