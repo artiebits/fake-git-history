@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const meow = require("meow");
-const fgh = require(".");
+const fgh = require("./index");
 
 const cli = meow(
   `

@@ -1,9 +1,13 @@
 {
   "name": "fake-git-history",
   "version": "0.0.1",
-  "description": "fake commit history",
-  "main": "index.js",
-  "bin": "./cli.js",
+  "description": "A utility to fake your commit history",
+  "bin": "cli.js",
+  "main": "cli.js",
+  "files": [
+    "cli.js",
+    "index.js"
+  ],
   "repository": "git@github.com:artiebits/fake-git-history.git",
   "author": "artiebits <artur.khusaenov@gmail.com>",
   "license": "MIT",
