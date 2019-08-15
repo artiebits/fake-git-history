@@ -1,6 +1,6 @@
 {
   "name": "fake-git-history",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A utility to fake your commit history",
   "bin": "cli.js",
   "main": "cli.js",
