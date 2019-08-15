@@ -56,3 +56,7 @@ fake-git-history --workdaysOnly -s <YY/MM/DD> -e <YY/MM/DD>
 - `--endDate`, `-e` End date in YY/MM/DD format.
 - `--workdaysOnly`, `-w` Skip weekends.
 - `--commitsPerDay`, `-c` The number of commits to generate for every single day.
+
+## P.S.
+
+It is something I wrote as a joke, so don't take it seriously.
