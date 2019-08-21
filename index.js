@@ -33,16 +33,13 @@ module.exports = function({ startDate, endDate, workdaysOnly, commitsPerDay }) {
 
     const sortedList = commitDateList.sort(compareAsc);
 
-    await sortedList.reduce(async (prevPromise, date) => {
-      await prevPromise;
+    const command = sortedList
+      .map(date => {
+        return `echo "${date}" > ${filename}; git add ${filename}; git commit --date "${date}" -m "fake commit"`;
+      })
+      .join(";");
 
-      return execAsync(
-        `echo "${date}" > ${filename}; git add ${filename}; git commit --date "${date}" -m "fake commit"`,
-        {
-          encoding: "utf8"
-        }
-      );
-    }, Promise.resolve());
+    await execAsync(command, { encoding: "utf8" });
 
     spinner.succeed();
 
