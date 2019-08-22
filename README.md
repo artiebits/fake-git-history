@@ -1,6 +1,6 @@
 # Fake commit history
 
-A utility to fake commit history ¯\\_(ツ)_/¯.
+A command-line tool to fake your commit history ¯\\_(ツ)_/¯.
 
 Does your profile look like you have stopped coding at all? 
 No worries, this CLI is gonna help you!
