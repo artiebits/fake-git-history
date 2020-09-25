@@ -1,7 +1,7 @@
 {
   "name": "fake-git-history",
   "version": "0.1.1",
-  "description": "A command-line tool to fake your commit history",
+  "description": "A command-line tool to generate git activity",
   "bin": "cli.js",
   "main": "cli.js",
   "files": [
@@ -28,5 +28,14 @@
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-react": "7.14.3",
     "prettier": "1.18.2"
-  }
+  },
+  "keywords": [
+    "git",
+    "github",
+    "commit-history",
+    "git-activity",
+    "contributions-calendar",
+    "contribution-graph",
+    "contributions"
+  ]
 }
