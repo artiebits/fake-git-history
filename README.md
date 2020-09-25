@@ -9,8 +9,11 @@ No worries, this script will help you!
 
 ## Installation
 
+Make sure you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Node.js](https://nodejs.org/en/download/) installed on your machine. 
+Then install this tool:
+
 ```shell script
-yarn global add fake-git-history
+npm i -g fake-git-history
 ```
 
 ## Usage
@@ -59,8 +62,8 @@ fake-git-history --workdaysOnly -s yyyy/MM/dd -e yyyy/MM/dd
 
 ## P.S.
 
-It is something I wrote as a joke, so don't take it seriously.
-I don't encourage you to cheat. But if anybody is judging your professional skills by the graph at your GitHub profile, they deserve to see a rich git activity.
-If you enjoy using this tool? I would appreciate it if you buy me a coffee.
+It is something I wrote as a joke, so don't take it seriously. I don't encourage people to cheat. But if anybody is judging your professional skills by the graph at your GitHub profile, they deserve to see a rich graph.
+
+Enjoy using this tool? I would appreciate it if you buy me a coffee.
  
 <a href="https://www.buymeacoffee.com/artiebits" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
