@@ -1,6 +1,6 @@
 {
   "name": "fake-git-history",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "A command-line tool to generate your git activity",
   "bin": "cli.js",
   "main": "cli.js",
