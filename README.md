@@ -1,6 +1,6 @@
 # Fake commit history
 
-A command-line tool to generate git activity ¯\\_(ツ)_/¯.
+A command-line tool to generate your git activity ¯\\_(ツ)_/¯.
 
 Does your profile look like you have stopped coding at all? 
 No worries, this script will help you!
