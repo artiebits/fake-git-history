@@ -1,20 +1,30 @@
 {
   "name": "fake-git-history",
-  "version": "1.0.0",
+  "version": "1.1.0-beta.0",
   "description": "A command-line tool to generate your git activity",
-  "bin": "cli.js",
-  "main": "cli.js",
+  "bin": "src/cli.js",
+  "main": "src/cli.js",
   "files": [
-    "cli.js",
-    "index.js"
+    "src/cli.js",
+    "src/index.js"
   ],
   "repository": "git@github.com:artiebits/fake-git-history.git",
   "author": "artiebits <artur.khusaenov@gmail.com>",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "node cli.js",
-    "lint": "eslint index.js cli.js"
+    "start": "node src/cli.js",
+    "lint": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*src/**/*.{js,md}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "chalk": "2.4.2",
@@ -23,11 +33,9 @@
     "ora": "3.4.0"
   },
   "devDependencies": {
-    "eslint": "6.1.0",
-    "eslint-config-prettier": "6.0.0",
-    "eslint-plugin-prettier": "3.1.4",
-    "eslint-plugin-react": "7.14.3",
-    "prettier": "1.18.2"
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
+    "prettier": "^1.19.1"
   },
   "keywords": [
     "git",
