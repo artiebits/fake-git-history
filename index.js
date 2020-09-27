@@ -46,14 +46,20 @@ module.exports = function({ startDate, endDate, workdaysOnly, commitsPerDay }) {
     const numberOfCommits = commitDateList.length;
     if (!numberOfCommits) {
       console.log(
-        chalk.green(`There is nothing to create. Check your date range.`)
+        chalk.green("There is nothing to create. Check your date range.")
       );
       return;
     }
     console.log(
-      chalk.green("success"),
+      chalk.green("Success"),
       numberOfCommits,
       "commits have been created."
+    );
+    console.log(
+      chalk.magenta(
+        "Enjoy using this tool? I would appreciate it if you buy me a coffee"
+      ),
+      chalk.green("https://www.buymeacoffee.com/artiebits")
     );
   })();
 
