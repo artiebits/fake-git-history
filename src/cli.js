@@ -9,27 +9,25 @@ const cli = meow(
       $ fake-git-history [options]
  
     Options
-      --startDate, -s Start date in YYYY/MM/DD format.
-      --endDate, -e End date in YYYY/MM/DD format.
-      --workdaysOnly, -w Skip weekends.
-      --commitsPerDay, -c The number of commits to generate per day.
+      --workdaysOnly, -w Use this option if you don't want to commit on weekends.
+      --commitsPerDay, -c Customize how many commits a day to make.
+      --startDate, -s Start date in yyyy/MM/dd format.
+      --endDate, -e End date yyyy/MM/dd format.
       
     Examples
-      $ fake-git-history --startDate <YYYY/MM/DD> --endDate <YYYY/MM/DD>
-      $ fake-git-history --commitsPerDay "1,5" -s <YYYY/MM/DD> -e <YYYY/MM/DD>
-      $ fake-git-history --workdaysOnly -s <YYYY/MM/DD> -e <YYYY/MM/DD>
+      $ fake-git-history --workdaysOnly
+      $ fake-git-history --commitsPerDay "0,3"
+      $ fake-git-history --startDate yyyy/MM/dd --endDate yyyy/MM/dd
 `,
   {
     flags: {
       startDate: {
         type: "string",
-        alias: "s",
-        default: "false"
+        alias: "s"
       },
       endDate: {
         type: "string",
-        alias: "e",
-        default: "false"
+        alias: "e"
       },
       workdaysOnly: {
         type: "boolean",
