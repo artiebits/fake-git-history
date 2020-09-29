@@ -23,13 +23,12 @@ mkdir my-fake-history
 cd my-fake-history
 git init
 
-# Generate commit history for a specific date range.
-# The date must be in yyyy/MM/dd format. For example 2019/01/01
-fake-git-history --startDate yyyy/MM/dd --endDate yyyy/MM/dd
+# Generate your commit history.
+fake-git-history
 ```
 
 Then create [a private repository](https://github.com/new) on GitHub,
-add follow the instructions to push the history to the remote repository.
+and follow the instructions to push the history to the remote repository.
 
 ```shell script
 git remote add origin git@github.com:<USERNAME>/my-fake-history.git
@@ -38,28 +37,28 @@ git push -u origin master
 
 Done! Go take a look at your contributions graph.
 
-## More examples
+## Customizations
 
 Specify how many commits should be created for every single day. 
-Default is `0,3` which means it will randomly create from 0 to 3 commit messages for a day.
+Default is `0,3` which means it will randomly make from 0 to 3 commits a day.
 
 ```shell script
-fake-git-history --commitsPerDay "1,5" -s yyyy/MM/dd -e yyyy/MM/dd
+fake-git-history --commitsPerDay "1,5"
 ```
 
-Generate commit history for weekdays only.
+Use `--workdaysOnly` if you don't want to commit on weekends.
 
 ```shell script
-fake-git-history --workdaysOnly -s yyyy/MM/dd -e yyyy/MM/dd
+fake-git-history --workdaysOnly
 ```
 
 ## CLI
 
-- `--startDate` or `-s` Start date in yyyy/MM/dd format.
-- `--endDate`, `-e` End date in YYYY/MM/DD format.
-- `--workdaysOnly`, `-w` Skip weekends.
-- `--commitsPerDay`, `-c` The number of commits to generate for every single day.
-
+- `--workdaysOnly` or `-w` Use this option if you don't want to commit on weekends.
+- `--commitsPerDay` or `-c` Customize how many commits a day to make.
+- `--startDate`, or `-s` Start date in yyyy/MM/dd format.
+- `--endDate`, `-e` End date yyyy/MM/dd format.
+      
 ## P.S.
 
 It is something I wrote as a joke, so don't take it seriously. I don't encourage people to cheat. But if anybody is judging your professional skills by the graph at your GitHub profile, they deserve to see a rich graph.

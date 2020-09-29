@@ -5,6 +5,7 @@ const {
   parse,
   compareAsc,
   addDays,
+  addYears,
   isWeekend,
   setHours,
   setMinutes
@@ -12,24 +13,22 @@ const {
 const chalk = require("chalk");
 const ora = require("ora");
 
-module.exports = function({ startDate, endDate, workdaysOnly, commitsPerDay }) {
+module.exports = function(props) {
   const filename = "foo.txt";
-
-  startDate = parse(startDate);
-  endDate = parse(endDate);
-  commitsPerDay = commitsPerDay.split(",");
 
   execSync(`touch ${filename}`);
 
   const commitDateList = generateCommitDateList({
-    commitsPerDay,
-    workdaysOnly,
-    startDate,
-    endDate
+    workdaysOnly: props.workdaysOnly,
+    commitsPerDay: props.commitsPerDay.split(","),
+    startDate: props.startDate
+      ? parse(props.startDate)
+      : addYears(new Date(), -1),
+    endDate: props.endDate ? parse(props.endDate) : new Date()
   });
 
   (async function generateHistory() {
-    const spinner = ora("generating commit history\n").start();
+    const spinner = ora("generating your GitHub activity\n").start();
 
     const sortedList = commitDateList.sort(compareAsc);
 
@@ -43,16 +42,9 @@ module.exports = function({ startDate, endDate, workdaysOnly, commitsPerDay }) {
 
     spinner.succeed();
 
-    const numberOfCommits = commitDateList.length;
-    if (!numberOfCommits) {
-      console.log(
-        chalk.green("There is nothing to create. Check your date range.")
-      );
-      return;
-    }
     console.log(
       chalk.green("Success"),
-      numberOfCommits,
+      commitDateList.length,
       "commits have been created."
     );
     console.log(
@@ -94,7 +86,6 @@ module.exports = function({ startDate, endDate, workdaysOnly, commitsPerDay }) {
     return commitDateList;
   }
 
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#Getting_a_random_integer_between_two_values_inclusive
   function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
