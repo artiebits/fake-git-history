@@ -55,13 +55,6 @@ If you want to generate activity for a specific dates, then use these options:
 npx fake-git-history --startDate "2020/09/30"
 ```
 
-## CLI
-
-- `--workdaysOnly` or `-w` Use this option if you don't want to commit on weekends.
-- `--commitsPerDay` or `-c` Customize how many commits a day to make.
-- `--startDate`, or `-s` Start date in yyyy/MM/dd format.
-- `--endDate`, `-e` End date yyyy/MM/dd format.
-      
 ## P.S.
 
 It is something I wrote as a joke, so don't take it seriously. I don't encourage people to cheat. But if anybody is judging your professional skills by the graph at your GitHub profile, they deserve to see a rich graph.
