@@ -2,38 +2,38 @@
 
 A command-line tool to fake your GitHub activity ¯\\_(ツ)_/¯.
 
-Does your profile look like you have stopped coding at all? 
+Does your profile look like you have stopped coding at all?
 No worries, this script will help you!
 
 <img src="https://dl.dropboxusercontent.com/s/q2iinti6v0zbhzs/contributions.gif?dl=0" alt="How it works" />
 
 ## How To Use
 
-1. Make sure you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Node.js](https://nodejs.org/en/download/) installed on your machine. 
-2. Create the folder and initialize it:
-    ```shell script
-    mkdir my-history && cd my-history && git init
-    ```
-3. Generate your commits: 
-    ```shell script
-    npx fake-git-history
+1. Make sure you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Node.js](https://nodejs.org/en/download/) installed on your machine.
+2. Create the folder and initialize the repo:
+   ```shell script
+   mkdir my-history
+   cd my-history
+   git init
+   ```
+3. Generate your commits:
+   ```shell script
+   npx fake-git-history
    ```
    It will generate changes to the file for every day within the last year (0-3 commits per day).
-4. Create [a private repository](https://github.com/new) called `my-history`,
-and push your fake history to the remote repository:
-    ```shell script
-    git remote add origin git@github.com:<USERNAME>/my-history.git
-    git push -u origin master
-    ```
+4. Create [a private repository](https://github.com/new) called `my-history`
+   and push your fake history to the remote repository:
+   `shell script git remote add origin git@github.com:<USERNAME>/my-history.git git push -u origin master `
 
-Done! Go take a look at your GitHub profile.
+Done! Go take a look at your GitHub profile 😉
 
 ## Customizations
 
 ### `--commitsPerDay`
 
-Specify how many commits should be created for every single day. 
+Specify how many commits should be created for every single day.
 Default is `0,3` which means it will randomly make from 0 to 3 commits a day. Example:
+
 ```shell script
 npx fake-git-history --commitsPerDay "0,5"
 ```
@@ -48,17 +48,17 @@ npx fake-git-history --workdaysOnly
 
 ### `--startDate` and `--endDate`
 
-By default, the script generates GitHub commits for every day within the last year. 
+By default, the script generates GitHub commits for every day within the last year.
 If you want to generate activity for a specific dates, then use these options:
 
 ```shell script
-npx fake-git-history --startDate "2020/09/30"
+npx fake-git-history --startDate "2020/09/01" --endDate "2020/09/30"
 ```
 
-## P.S.
+## PS 
 
-It is something I wrote as a joke, so don't take it seriously. I don't encourage people to cheat. But if anybody is judging your professional skills by the graph at your GitHub profile, they deserve to see a rich graph.
+It is something I wrote as a joke, so don't take it seriously. 
 
-Enjoy using this tool? I would appreciate it if you buy me a coffee.
- 
-<a href="https://www.buymeacoffee.com/artiebits" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+I don't encourage people to cheat. But if anybody is judging your professional skills by the graph at your GitHub profile, they deserve to see a rich graph 🤓
+
+Enjoy using this tool? I would appreciate it if you [buy me a cup of coffee](https://www.buymeacoffee.com/artiebits).
