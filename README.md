@@ -23,7 +23,10 @@ No worries, this script will help you!
    It will generate changes to the file for every day within the last year (0-3 commits per day).
 4. Create [a private repository](https://github.com/new) called `my-history`
    and push your fake history to the remote repository:
-   `shell script git remote add origin git@github.com:<USERNAME>/my-history.git git push -u origin master `
+   ```shell script 
+   git remote add origin git@github.com:<USERNAME>/my-history.git 
+   git push -u origin master
+   ```
 
 Done! Go take a look at your GitHub profile 😉
 
