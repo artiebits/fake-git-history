@@ -12,6 +12,7 @@ const {
 } = require("date-fns");
 const chalk = require("chalk");
 const ora = require("ora");
+const boxen = require("boxen");
 
 module.exports = function(props) {
   const filename = "foo.txt";
@@ -28,7 +29,7 @@ module.exports = function(props) {
   });
 
   (async function generateHistory() {
-    const spinner = ora("generating your GitHub activity\n").start();
+    const spinner = ora("Generating your GitHub activity\n").start();
 
     const sortedList = commitDateList.sort(compareAsc);
 
@@ -42,17 +43,15 @@ module.exports = function(props) {
 
     spinner.succeed();
 
-    console.log(
-      chalk.green("Success"),
-      commitDateList.length,
-      "commits have been created."
+    const successMessage = boxen(
+      `${chalk.green("Success")} ${
+        commitDateList.length
+      } commits have been created.
+      Enjoy using this tool? I would appreciate it if you buy me a cup of coffee 
+      ${chalk.blueBright("https://www.buymeacoffee.com/artiebits")}`,
+      { borderColor: "yellow", padding: 1, align: "center" }
     );
-    console.log(
-      chalk.magenta(
-        "Enjoy using this tool? I would appreciate it if you buy me a coffee"
-      ),
-      chalk.green("https://www.buymeacoffee.com/artiebits")
-    );
+    console.log(successMessage);
   })();
 
   function generateCommitDateList({
