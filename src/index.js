@@ -1,9 +1,9 @@
 const util = require("util");
-const { exec, execSync } = require("child_process");
+const os = require("os");
+const { exec } = require("child_process");
 const execAsync = util.promisify(exec);
 const {
   parse,
-  compareAsc,
   addDays,
   addYears,
   isWeekend,
@@ -14,10 +14,18 @@ const chalk = require("chalk");
 const ora = require("ora");
 const boxen = require("boxen");
 
+async function sleep(millis) {
+  return new Promise(resolve => setTimeout(resolve, millis));
+}
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 module.exports = function(props) {
   const filename = "foo.txt";
-
-  execSync(`touch ${filename}`);
 
   const commitDateList = generateCommitDateList({
     workdaysOnly: props.workdaysOnly,
@@ -31,15 +39,21 @@ module.exports = function(props) {
   (async function generateHistory() {
     const spinner = ora("Generating your GitHub activity\n").start();
 
-    const sortedList = commitDateList.sort(compareAsc);
-
-    const command = sortedList
-      .map(date => {
-        return `echo "${date}" > ${filename}; git add ${filename}; git commit --date "${date}" -m "fake commit"`;
-      })
-      .join(";");
-
-    await execAsync(command, { encoding: "utf8" });
+    if (os.platform() === "win32") {
+      for (const date of commitDateList) {
+        await sleep(150);
+        exec(`echo "${date}" > ${filename}`);
+        exec(`git add .`);
+        exec(`git commit --quiet --date "${date}" -m "fake commit"`);
+      }
+    } else {
+      const command = commitDateList
+        .map(date => {
+          return `echo "${date}" > ${filename}; git add .; git commit --date "${date}" -m "fake commit"`;
+        })
+        .join(";");
+      await execAsync(command);
+    }
 
     spinner.succeed();
 
@@ -83,11 +97,5 @@ module.exports = function(props) {
     }
 
     return commitDateList;
-  }
-
-  function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 };
