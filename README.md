@@ -10,7 +10,7 @@ No worries, this script will help you!
 ## How To Use
 
 1. Make sure you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Node.js](https://nodejs.org/en/download/) installed on your machine.
-2. Create the folder and initialize the repo:
+2. Create a new repository:
    ```shell script
    mkdir my-history
    cd my-history
@@ -25,7 +25,8 @@ No worries, this script will help you!
    and push your fake history to the remote repository:
    ```shell script 
    git remote add origin git@github.com:<USERNAME>/my-history.git 
-   git push -u origin master
+   git branch -M main
+   git push -u origin main
    ```
 
 Done! Go take a look at your GitHub profile 😉
