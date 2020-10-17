@@ -57,15 +57,16 @@ module.exports = function(props) {
 
     spinner.succeed();
 
-    const successMessage = boxen(
-      `${chalk.green("Success")} ${
-        commitDateList.length
-      } commits have been created.
-      Enjoy using this tool? I would appreciate it if you buy me a cup of coffee 
+    console.log(
+      boxen(
+        `${chalk.green("Success")} ${
+          commitDateList.length
+        } commits have been created.
+      If you rely on this tool, please consider buying me a cup of coffee. I would appreciate it 
       ${chalk.blueBright("https://www.buymeacoffee.com/artiebits")}`,
-      { borderColor: "yellow", padding: 1, align: "center" }
+        { borderColor: "yellow", padding: 1, align: "center" }
+      )
     );
-    console.log(successMessage);
   })();
 
   function generateCommitDateList({
