@@ -14,10 +14,6 @@ const chalk = require("chalk");
 const ora = require("ora");
 const boxen = require("boxen");
 
-async function sleep(millis) {
-  return new Promise(resolve => setTimeout(resolve, millis));
-}
-
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
