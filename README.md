@@ -1,6 +1,6 @@
 # Fake GitHub Commits
 
-A command-line tool to fake your GitHub activity ¯\\_(ツ)_/¯.
+A command-line tool to generate your GitHub activity graph.
 
 Does your profile look like you have stopped coding at all?
 No worries, this script will help you!
@@ -62,7 +62,4 @@ npx fake-git-history --startDate "2020/09/01" --endDate "2020/09/30"
 ## PS 
 
 It is something I wrote as a joke, so don't take it seriously. 
-
 I don't encourage people to cheat. But if anybody is judging your professional skills by the graph at your GitHub profile, they deserve to see a rich graph 🤓
-
-Enjoy using this tool? I would appreciate it if you [buy me a cup of coffee](https://www.buymeacoffee.com/artiebits).
