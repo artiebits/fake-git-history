@@ -14,7 +14,7 @@
   "private": false,
   "scripts": {
     "start": "node src/cli.js",
-    "lint": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
+    "lint": "prettier --write 'src/**/*.js'"
   },
   "husky": {
     "hooks": {
