@@ -1,5 +1,4 @@
 const util = require("util");
-const os = require("os");
 const { exec } = require("child_process");
 const execAsync = util.promisify(exec);
 const {
@@ -35,19 +34,10 @@ module.exports = function(props) {
   (async function generateHistory() {
     const spinner = ora("Generating your GitHub activity\n").start();
 
-    if (os.platform() === "win32") {
-      for (const date of commitDateList) {
-        await execShellCommand(`echo "${date}" > ${filename}`);
-        await execShellCommand(`git add .`);
-        await execShellCommand(`git commit --quiet --date "${date}" -m "fake commit"`);
-      }
-    } else {
-      const command = commitDateList
-        .map(date => {
-          return `echo "${date}" > ${filename}; git add .; git commit --date "${date}" -m "fake commit"`;
-        })
-        .join(";");
-      await execAsync(command);
+    for (const date of commitDateList) {
+      await execAsync(`echo "${date}" > ${filename}`);
+      await execAsync(`git add .`);
+      await execAsync(`git commit --quiet --date "${date}" -m "fake commit"`);
     }
 
     spinner.succeed();
@@ -64,23 +54,6 @@ module.exports = function(props) {
     );
   })();
 
-  /**
-   * Executes a shell command and return it as a Promise.
-   * @param cmd {string}
-   * @return {Promise<string>}
-   */
-  function execShellCommand(cmd) {
-    const exec = require('child_process').exec;
-    return new Promise((resolve, reject) => {
-    exec(cmd, (error, stdout, stderr) => {
-      if (error) {
-      console.warn(error);
-      }
-      resolve(stdout? stdout : stderr);
-    });
-    });
-  }
-  
   function generateCommitDateList({
     commitsPerDay,
     workdaysOnly,
