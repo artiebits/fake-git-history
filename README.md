@@ -1,4 +1,4 @@
-# Fake GitHub Commits
+# Generate GitHub Commits
 
 A command-line tool to generate your GitHub activity graph.
 
@@ -11,23 +11,17 @@ No worries, this script will help you.
 
 1. Make sure you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and 
    [Node.js](https://nodejs.org/en/download/) installed on your machine.
-2. Create a new repository:
-   ```shell script
-   mkdir my-history
-   cd my-history
-   git init
-   ```
 3. Generate your commits:
    ```shell script
    npx fake-git-history
    ```
-   It will generate changes to the file for every day within the last year (0-3 commits per day).
-4. Create [a private repository](https://github.com/new) called `my-history`
-   and push your fake history to the remote repository:
+   It will create `my-history` folder, initialize git and generate commits for every day within the last year (0-3 commits per day).
+4. Create [a private repository](https://github.com/new) in your GitHub called `my-history`
+   and push the changes:
    ```shell script 
+   cd my-history
    git remote add origin git@github.com:<USERNAME>/my-history.git 
-   git branch -M main
-   git push -u origin main
+   git push -u origin master
    ```
 
 Done! Go take a look at your GitHub profile 😉
@@ -62,5 +56,5 @@ npx fake-git-history --startDate "2020/09/01" --endDate "2020/09/30"
 
 ## PS 
 
-It is something I wrote as a joke, so don't take it seriously. 
-I don't encourage people to cheat. But if anybody is judging your professional skills by the graph at your GitHub profile, they deserve to see a rich graph 🤓
+It is something I wrote as a joke, so don't take it seriously. I don't encourage you to cheat, 
+but if anybody is judging your professional skills by the graph at your GitHub profile, they deserve to see a rich activity graph 🤓

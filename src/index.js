@@ -1,3 +1,4 @@
+const process = require("process");
 const { exec } = require("child_process");
 const util = require("util");
 const execAsync = util.promisify(exec);
@@ -14,8 +15,6 @@ const ora = require("ora");
 const boxen = require("boxen");
 
 module.exports = function({ commitsPerDay, workdaysOnly, startDate, endDate }) {
-  const filename = "foo.txt";
-
   const commitDateList = createCommitDateList({
     workdaysOnly,
     commitsPerDay: commitsPerDay.split(","),
@@ -26,8 +25,19 @@ module.exports = function({ commitsPerDay, workdaysOnly, startDate, endDate }) {
   (async function() {
     const spinner = ora("Generating your GitHub activity\n").start();
 
+    const historyFolder = "my-history";
+
+    // Remove git history folder in case if it already exists.
+    await execAsync(`rm -rf ${historyFolder}`);
+
+    // Create git history folder.
+    await execAsync(`mkdir ${historyFolder}`);
+    process.chdir(historyFolder);
+    await execAsync(`git init`);
+
+    // Create commits.
     for (const date of commitDateList) {
-      await execAsync(`echo "${date}" > ${filename}`);
+      await execAsync(`echo "${date}" > foo.txt`);
       await execAsync(`git add .`);
       await execAsync(`git commit --quiet --date "${date}" -m "fake commit"`);
     }
