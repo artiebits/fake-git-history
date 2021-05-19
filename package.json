@@ -1,6 +1,6 @@
 {
   "name": "fake-git-history",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "A command-line tool to generate your GitHub activity graph.",
   "bin": "src/cli.js",
   "main": "src/cli.js",
