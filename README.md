@@ -2,14 +2,15 @@
 
 A command-line tool to generate your GitHub activity graph.
 
-Does your profile look like you have stopped coding at all?
-No worries, this script will help you!
+Does your profile look like you have stopped coding at all? 
+No worries, this script will help you.
 
 <img src="https://dl.dropboxusercontent.com/s/q2iinti6v0zbhzs/contributions.gif?dl=0" alt="How it works" />
 
 ## How To Use
 
-1. Make sure you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Node.js](https://nodejs.org/en/download/) installed on your machine.
+1. Make sure you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and 
+   [Node.js](https://nodejs.org/en/download/) installed on your machine.
 2. Create a new repository:
    ```shell script
    mkdir my-history
