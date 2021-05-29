@@ -1,6 +1,7 @@
 const process = require("process");
 const { exec } = require("child_process");
 const util = require("util");
+const { existsSync } = require("fs");
 const execAsync = util.promisify(exec);
 const {
   parse,
@@ -27,8 +28,12 @@ module.exports = function({ commitsPerDay, workdaysOnly, startDate, endDate }) {
 
     const historyFolder = "my-history";
 
-    // Remove git history folder in case if it already exists.
-    await execAsync(`rm -rf ${historyFolder}`);
+    // Remove git history folder in case if it already exists.]
+    if (existsSync(`./${historyFolder}`)) {
+      await execAsync(
+        `${process.platform === "win32" ? "rmdir" : "rm -rf"} ${historyFolder}`
+      );
+    }
 
     // Create git history folder.
     await execAsync(`mkdir ${historyFolder}`);
