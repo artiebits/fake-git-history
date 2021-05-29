@@ -42,6 +42,14 @@ module.exports = function({ commitsPerDay, workdaysOnly, startDate, endDate }) {
 
     // Create commits.
     for (const date of commitDateList) {
+      // Change spinner so user can get the progress right now.
+      const dateFormatted = new Intl.DateTimeFormat("en", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }).format(date);
+      spinner.text = `Generating your Github activity... (${dateFormatted})\n`;
+
       await execAsync(`echo "${date}" > foo.txt`);
       await execAsync(`git add .`);
       await execAsync(`git commit --quiet --date "${date}" -m "fake commit"`);
