@@ -31,7 +31,9 @@ module.exports = function({ commitsPerDay, workdaysOnly, startDate, endDate }) {
     // Remove git history folder in case if it already exists.]
     if (existsSync(`./${historyFolder}`)) {
       await execAsync(
-        `${process.platform === "win32" ? "rmdir" : "rm -rf"} ${historyFolder}`
+        `${
+          process.platform === "win32" ? "rmdir /s /q" : "rm -rf"
+        } ${historyFolder}`
       );
     }
 
