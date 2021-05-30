@@ -1,6 +1,7 @@
 const process = require("process");
 const { exec } = require("child_process");
 const util = require("util");
+const { existsSync } = require("fs");
 const execAsync = util.promisify(exec);
 const {
   parse,
@@ -27,8 +28,14 @@ module.exports = function({ commitsPerDay, workdaysOnly, startDate, endDate }) {
 
     const historyFolder = "my-history";
 
-    // Remove git history folder in case if it already exists.
-    await execAsync(`rm -rf ${historyFolder}`);
+    // Remove git history folder in case if it already exists.]
+    if (existsSync(`./${historyFolder}`)) {
+      await execAsync(
+        `${
+          process.platform === "win32" ? "rmdir /s /q" : "rm -rf"
+        } ${historyFolder}`
+      );
+    }
 
     // Create git history folder.
     await execAsync(`mkdir ${historyFolder}`);
@@ -37,6 +44,14 @@ module.exports = function({ commitsPerDay, workdaysOnly, startDate, endDate }) {
 
     // Create commits.
     for (const date of commitDateList) {
+      // Change spinner so user can get the progress right now.
+      const dateFormatted = new Intl.DateTimeFormat("en", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }).format(date);
+      spinner.text = `Generating your Github activity... (${dateFormatted})\n`;
+
       await execAsync(`echo "${date}" > foo.txt`);
       await execAsync(`git add .`);
       await execAsync(`git commit --quiet --date "${date}" -m "fake commit"`);
