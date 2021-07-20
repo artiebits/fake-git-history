@@ -9,7 +9,6 @@
     "src/index.js"
   ],
   "repository": "git@github.com:artiebits/fake-git-history.git",
-  "author": "artiebits <artur.khusaenov@gmail.com>",
   "license": "MIT",
   "private": false,
   "scripts": {
