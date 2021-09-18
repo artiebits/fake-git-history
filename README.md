@@ -2,6 +2,8 @@
 
 A command-line tool to generate your GitHub activity graph.
 
+<a href="https://www.buymeacoffee.com/artiebits" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 Does your profile look like you have stopped coding at all? 
 No worries, this script will help you.
 
