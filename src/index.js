@@ -9,7 +9,8 @@ const {
   addYears,
   isWeekend,
   setHours,
-  setMinutes
+  setMinutes,
+  setSeconds
 } = require("date-fns");
 const chalk = require("chalk");
 const ora = require("ora");
@@ -94,10 +95,15 @@ function createCommitDateList({
     }
     for (let i = 0; i < getRandomIntInclusive(...commitsPerDay); i++) {
       const dateWithHours = setHours(currentDate, getRandomIntInclusive(9, 16));
-      const commitDate = setMinutes(
+      const dateWithHoursAndMinutes = setMinutes(
         dateWithHours,
         getRandomIntInclusive(0, 59)
       );
+      const commitDate = setSeconds(
+        dateWithHoursAndMinutes,
+        getRandomIntInclusive(0, 59)
+      );
+
       commitDateList.push(commitDate);
     }
     currentDate = addDays(currentDate, 1);
