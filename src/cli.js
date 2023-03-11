@@ -14,6 +14,7 @@ const cli = meow(
       --startDate, -s Start date in yyyy/MM/dd format.
       --endDate, -e End date yyyy/MM/dd format.
       --historyFolder, -h Use this option to override the default folder
+      --regenerate, -r Use this option to regenerate a folder where there already exists a git history
       
     Examples
       $ fake-git-history --workdaysOnly
@@ -43,7 +44,12 @@ const cli = meow(
       historyFolder: {
         type: "string",
         alias: "h",
-        default: "fake-git-history"
+        default: "fake-history"
+      },
+      regenerate: {
+        type: "boolean",
+        alias: "r",
+        default: "false"
       }
     }
   }

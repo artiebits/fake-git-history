@@ -1,6 +1,6 @@
 # Generate Git Commits
 
-A command-line tool that generates GitHub or GitLab activity graph to make it look like you have been coding regularly.
+A command-line tool that generates GitHub or GitLab activity graph to make it look like you have been coding incredibly irregularly and to make you look like a machine.
 
 <img src="https://dl.dropboxusercontent.com/s/q2iinti6v0zbhzs/contributions.gif?dl=0" alt="How it works" />
 
@@ -29,9 +29,9 @@ If you rely on this tool and find it useful, please consider supporting it. Main
 
 <a href="https://www.buymeacoffee.com/artiebits" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-## Customizations
+## Available Flags
 
-### `--commitsPerDay`
+### `--commitsPerDay, -c`
 
 Specify the number of commits to be created for each day.
 The default value is `0,3`, which means it will randomly generate from 0 to 3 commits per day. For example, to generate commits randomly between 0 and 5 per day, you can do:
@@ -40,7 +40,7 @@ The default value is `0,3`, which means it will randomly generate from 0 to 3 co
 npx fake-git-history --commitsPerDay "0,5"
 ```
 
-### `--workdaysOnly`
+### `--workdaysOnly, -w`
 
 Use this option if you don't want to commit on weekends. Example:
 
@@ -48,7 +48,7 @@ Use this option if you don't want to commit on weekends. Example:
 npx fake-git-history --workdaysOnly
 ```
 
-### `--startDate` and `--endDate`
+### `--startDate, -s` and `--endDate, -e`
 
 By default, the script generates GitHub commits for every day within the last year.
 However, if you want to generate activity for specific dates, use these options:
@@ -57,6 +57,12 @@ However, if you want to generate activity for specific dates, use these options:
 npx fake-git-history --startDate "2020/09/01" --endDate "2020/09/30"
 ```
 
-## PS
+### `--regenerate, -r`
+This option is defaulted to `false` however if you would like to regenerate your github history project, you can use this to force it to regenerate it with a full new history while simultaneously blasting the old one away.
 
-This tool was created as a joke, so please don't take it seriously. While cheating is never encouraged, if someone is judging your professional skills based on your GitHub activity graph, they deserve to see a rich activity graph 🤓
+### `--historyFolder, -h `
+This option allows one to change where the folder is set to create the history. The default for this is `./fake-history/`.
+
+## For the Curious
+
+This tool was created ~~as a joke~~, so please don't take it seriously. While cheating is never encouraged, if someone is judging your professional skills based on your GitHub activity graph, they deserve to see a rich activity graph 🤓
