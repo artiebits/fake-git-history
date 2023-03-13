@@ -1,6 +1,6 @@
 # Generate Git Commits
 
-A command-line tool that generates GitHub or GitLab activity graph to make it look like you have been coding incredibly irregularly and to make you look like a machine.
+A command-line tool that generates GitHub or GitLab activity graph to make it look like you have been coding regularly.
 
 <img src="https://dl.dropboxusercontent.com/s/q2iinti6v0zbhzs/contributions.gif?dl=0" alt="How it works" />
 
