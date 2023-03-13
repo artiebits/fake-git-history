@@ -79,7 +79,7 @@ module.exports = function({
         month: "long",
         year: "numeric"
       }).format(date);
-      spinner.text = `Generating a distinguished github history full of lies... 😈 (${dateFormatted})\n`;
+      spinner.text = `Generating a distinguished github. (${dateFormatted})\n`;
 
       await execAsync(`echo "${date}" > foo.txt`);
       await execAsync(`git add .`);
