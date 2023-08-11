@@ -14,7 +14,6 @@ A command-line tool that generates GitHub or GitLab activity graph to make it lo
    ```
    This command creates a my-history folder, initializes git, and generates commits for every day within the last year (0-3 commits per day).
 3. Create [a private repository](https://github.com/new) called `my-history` in your GitHub or GitLab, and push the changes:
-   and push the changes:
    ```shell script
    cd my-history
    git remote add origin git@github.com:<USERNAME>/my-history.git
