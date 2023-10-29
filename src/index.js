@@ -29,7 +29,7 @@ module.exports = function({ commitsPerDay, workdaysOnly, startDate, endDate }) {
 
     const historyFolder = "my-history";
 
-    // Remove git history folder in case if it already exists.]
+    // Remove git history folder in case if it already exists.
     if (existsSync(`./${historyFolder}`)) {
       await execAsync(
         `${
@@ -93,7 +93,10 @@ function createCommitDateList({
       currentDate = addDays(currentDate, 1);
       continue;
     }
-    for (let i = 0; i < getRandomIntInclusive(...commitsPerDay); i++) {
+
+    let n = getRandomIntInclusive(...commitsPerDay);
+
+    for (let i = 0; i < n; i++) {
       const dateWithHours = setHours(currentDate, getRandomIntInclusive(9, 16));
       const dateWithHoursAndMinutes = setMinutes(
         dateWithHours,

@@ -10,7 +10,7 @@ const cli = meow(
  
     Options
       --workdaysOnly, -w Use this option if you don't want to commit on weekends.
-      --commitsPerDay, -c Customize how many commits a day to make.
+      --commitsPerDay, -c Customize the number of commits per day.
       --startDate, -s Start date in yyyy/MM/dd format.
       --endDate, -e End date yyyy/MM/dd format.
       
