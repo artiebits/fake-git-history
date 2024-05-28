@@ -37,7 +37,12 @@ const cli = meow(
       commitsPerDay: {
         type: "string",
         alias: "c",
-        default: "0,3"
+        default: "0,18"
+      },
+      noCommitDaysPercentage: {
+        type: "number",
+        alias: "n",
+        default: 20
       }
     }
   }

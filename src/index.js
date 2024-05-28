@@ -16,12 +16,19 @@ const chalk = require("chalk");
 const ora = require("ora");
 const boxen = require("boxen");
 
-module.exports = function({ commitsPerDay, workdaysOnly, startDate, endDate }) {
+module.exports = function({
+  commitsPerDay,
+  workdaysOnly,
+  startDate,
+  endDate,
+  noCommitDaysPercentage
+}) {
   const commitDateList = createCommitDateList({
     workdaysOnly,
     commitsPerDay: commitsPerDay.split(","),
     startDate: startDate ? parse(startDate) : addYears(new Date(), -1),
-    endDate: endDate ? parse(endDate) : new Date()
+    endDate: endDate ? parse(endDate) : new Date(),
+    noCommitDaysPercentage
   });
 
   (async function() {
@@ -83,13 +90,21 @@ function createCommitDateList({
   commitsPerDay,
   workdaysOnly,
   startDate,
-  endDate
+  endDate,
+  noCommitDaysPercentage // Nouvelle variable
 }) {
   const commitDateList = [];
   let currentDate = startDate;
 
   while (currentDate <= endDate) {
     if (workdaysOnly && isWeekend(currentDate)) {
+      currentDate = addDays(currentDate, 1);
+      continue;
+    }
+
+    const randomPercentage = Math.random() * 100;
+
+    if (randomPercentage < noCommitDaysPercentage) {
       currentDate = addDays(currentDate, 1);
       continue;
     }
