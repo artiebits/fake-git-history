@@ -91,7 +91,7 @@ function createCommitDateList({
   workdaysOnly,
   startDate,
   endDate,
-  noCommitDaysPercentage // Nouvelle variable
+  noCommitDaysPercentage
 }) {
   const commitDateList = [];
   let currentDate = startDate;
