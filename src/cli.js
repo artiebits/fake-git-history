@@ -13,6 +13,7 @@ const cli = meow(
       --commitsPerDay, -c Customize the number of commits per day.
       --startDate, -s Start date in yyyy/MM/dd format.
       --endDate, -e End date yyyy/MM/dd format.
+      --noCommitDaysPercentage, -n Percentage of days without commits.
       
     Examples
       $ fake-git-history --workdaysOnly
@@ -38,6 +39,11 @@ const cli = meow(
         type: "string",
         alias: "c",
         default: "0,3"
+      },
+      noCommitDaysPercentage: {
+        type: "number",
+        alias: "n",
+        default: 20
       }
     }
   }
