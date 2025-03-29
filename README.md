@@ -8,6 +8,10 @@ A command-line tool that generates GitHub or GitLab activity graph to make it lo
 
 1. Make sure you have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and
    [Node.js](https://nodejs.org/en/download/) installed on your machine.
+2. Install dependencies:
+   ```shell script
+   npm i
+   ```
 2. Generate your commits:
    ```shell script
    npx fake-git-history
