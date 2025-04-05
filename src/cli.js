@@ -9,15 +9,18 @@ const cli = meow(
       $ fake-git-history [options]
  
     Options
-      --workdaysOnly, -w Use this option if you don't want to commit on weekends.
       --commitsPerDay, -c Customize the number of commits per day.
       --startDate, -s Start date in yyyy/MM/dd format.
       --endDate, -e End date yyyy/MM/dd format.
+      --distribution, -d Distribution pattern for commits:
+                         - uniform (default): Evenly distributed random commits
+                         - workHours: More commits during work hours (9am-5pm) and on weekdays
+                         - afterWork: More commits during evenings and weekends
       
     Examples
-      $ fake-git-history --workdaysOnly
       $ fake-git-history --commitsPerDay "0,3"
       $ fake-git-history --startDate yyyy/MM/dd --endDate yyyy/MM/dd
+      $ fake-git-history --distribution workHours
 `,
   {
     flags: {
@@ -29,15 +32,15 @@ const cli = meow(
         type: "string",
         alias: "e"
       },
-      workdaysOnly: {
-        type: "boolean",
-        alias: "w",
-        default: "false"
-      },
       commitsPerDay: {
         type: "string",
         alias: "c",
         default: "0,3"
+      },
+      distribution: {
+        type: "string",
+        alias: "d",
+        default: "uniform"
       }
     }
   }

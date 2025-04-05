@@ -39,12 +39,24 @@ The default value is `0,3`, which means it will randomly generate from 0 to 3 co
 npx fake-git-history --commitsPerDay "0,5"
 ```
 
-### `--workdaysOnly`
+### `--distribution`
 
-Use this option if you don't want to commit on weekends. Example:
+Choose the distribution pattern for generating commits:
+
+- `uniform` (default): Evenly distributed random commits between min and max
+- `workHours`: More commits during work hours (9am-5pm) and on weekdays (especially Tuesday-Thursday)
+- `afterWork`: More commits during evenings and weekends
+
+For a typical work schedule pattern:
 
 ```shell script
-npx fake-git-history --workdaysOnly
+npx fake-git-history --distribution workHours
+```
+
+For an evening/weekend coder pattern:
+
+```shell script
+npx fake-git-history --distribution afterWork
 ```
 
 ### `--startDate` and `--endDate`
