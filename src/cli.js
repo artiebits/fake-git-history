@@ -16,11 +16,13 @@ const cli = meow(
                          - uniform (default): Evenly distributed random commits
                          - workHours: More commits during work hours (9am-5pm) and on weekdays
                          - afterWork: More commits during evenings and weekends
+      --preview, -p Preview the activity graph.
       
     Examples
       $ fake-git-history --commitsPerDay "0,3"
       $ fake-git-history --startDate yyyy/MM/dd --endDate yyyy/MM/dd
       $ fake-git-history --distribution workHours
+      $ fake-git-history --preview
 `,
   {
     flags: {
@@ -41,6 +43,11 @@ const cli = meow(
         type: "string",
         alias: "d",
         default: "uniform"
+      },
+      preview: {
+        type: "boolean",
+        alias: "p",
+        default: false
       }
     }
   }

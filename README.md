@@ -21,7 +21,6 @@ A command-line tool that generates GitHub or GitLab activity graph to make it lo
    ```
 
 Done! Now take a look at your GitHub profile 😉
-
 ## Support This Project
 
 If you rely on this tool and find it useful, please consider supporting it. Maintaining an open source project takes time and a cup of coffee would be greatly appreciated!
@@ -57,6 +56,20 @@ For an evening/weekend coder pattern:
 
 ```shell script
 npx fake-git-history --distribution afterWork
+```
+
+### `--preview`
+
+If you want to preview the activity graph before creating any commits, use the `--preview` flag:
+
+```shell script
+npx fake-git-history --preview
+```
+
+You can combine this with other options:
+
+```shell script
+npx fake-git-history --preview --distribution workHours --commitsPerDay "1,5"
 ```
 
 ### `--startDate` and `--endDate`

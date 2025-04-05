@@ -10,14 +10,20 @@ const {
   setHours,
   setMinutes,
   setSeconds,
-  getDay,
-  differenceInDays
+  getDay
 } = require("date-fns");
 const chalk = require("chalk");
 const ora = require("ora");
 const boxen = require("boxen");
+const { generateActivityVisualization } = require("./visualization");
 
-module.exports = function({ commitsPerDay, startDate, endDate, distribution }) {
+module.exports = function({
+  commitsPerDay,
+  startDate,
+  endDate,
+  distribution,
+  preview
+}) {
   // Parse dates once to avoid inconsistencies
   const startDateObj = startDate ? parse(startDate) : addYears(new Date(), -1);
   const endDateObj = endDate ? parse(endDate) : new Date();
@@ -28,6 +34,15 @@ module.exports = function({ commitsPerDay, startDate, endDate, distribution }) {
     endDate: endDateObj,
     distribution: distribution || "uniform"
   });
+
+  // If preview mode is enabled, just show the visualization and exit
+  if (preview) {
+    console.log(chalk.bold("\nActivity Graph Preview:\n"));
+    console.log(
+      generateActivityVisualization(commitDateList, startDateObj, endDateObj)
+    );
+    return;
+  }
 
   (async function() {
     const spinner = ora("Generating your GitHub activity\n").start();
@@ -65,14 +80,26 @@ module.exports = function({ commitsPerDay, startDate, endDate, distribution }) {
 
     spinner.succeed();
 
+    // Show visualization of the created commits
+    console.log(chalk.bold("\nActivity Graph:\n"));
+    console.log(
+      generateActivityVisualization(commitDateList, startDateObj, endDateObj)
+    );
+
     console.log(
       boxen(
-        `${chalk.green("Success")} ${
-          commitDateList.length
-        } commits have been created.
-      If you rely on this tool, please consider buying me a cup of coffee. I would appreciate it 
-      ${chalk.blueBright("https://www.buymeacoffee.com/artiebits")}`,
-        { borderColor: "yellow", padding: 1, align: "center" }
+        `${chalk.yellow.bold(
+          "If you rely on this tool, please consider buying me a cup of coffee, "
+        )}\n` +
+          `${chalk.yellow.bold("I would appreciate it!")}\n\n` +
+          `${chalk.blueBright.bold("https://www.buymeacoffee.com/artiebits")}`,
+        {
+          borderColor: "yellow",
+          padding: 1,
+          align: "center",
+          borderStyle: "double",
+          margin: 1
+        }
       )
     );
   })();
