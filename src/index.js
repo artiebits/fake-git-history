@@ -39,7 +39,6 @@ module.exports = function({
 
   // If preview mode is enabled, just show the visualization and exit
   if (preview) {
-    console.log(chalk.bold("\nActivity Graph Preview:\n"));
     console.log(
       generateActivityVisualization(commitDateList, startDateObj, endDateObj)
     );

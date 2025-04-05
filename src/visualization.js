@@ -53,7 +53,9 @@ function generateActivityVisualization(commitDates, startDate, endDate) {
   const result = [];
 
   // Add a title
-  result.push(chalk.bold.green("GitHub Contribution Graph Simulation"));
+  result.push(
+    chalk.bold.green("This is what you will see on your GitHub profile:")
+  );
   result.push("");
 
   // Create month labels row
