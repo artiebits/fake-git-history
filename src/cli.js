@@ -10,6 +10,7 @@ const cli = meow(
  
     Options
       --commitsPerDay, -c Customize the number of commits per day.
+      --frequency, -f   Chance (0-100%) of generating commits for a day (default: 80).
       --startDate, -s Start date in yyyy/MM/dd format.
       --endDate, -e End date yyyy/MM/dd format.
       --distribution, -d Distribution pattern for commits:
@@ -20,6 +21,7 @@ const cli = meow(
       
     Examples
       $ fake-git-history --commitsPerDay "0,3"
+      $ fake-git-history --frequency 80
       $ fake-git-history --startDate yyyy/MM/dd --endDate yyyy/MM/dd
       $ fake-git-history --distribution workHours
       $ fake-git-history --preview
@@ -37,7 +39,12 @@ const cli = meow(
       commitsPerDay: {
         type: "string",
         alias: "c",
-        default: "0,3"
+        default: "0,4"
+      },
+      frequency: {
+        type: "number",
+        alias: "f",
+        default: 80
       },
       distribution: {
         type: "string",

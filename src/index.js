@@ -19,6 +19,7 @@ const { generateActivityVisualization } = require("./visualization");
 
 module.exports = function({
   commitsPerDay,
+  frequency,
   startDate,
   endDate,
   distribution,
@@ -30,6 +31,7 @@ module.exports = function({
 
   const commitDateList = createCommitDateList({
     commitsPerDay: commitsPerDay.split(","),
+    frequency,
     startDate: startDateObj,
     endDate: endDateObj,
     distribution: distribution || "uniform"
@@ -188,6 +190,7 @@ function getCommitsForDay(date, commitsPerDay, distribution) {
 
 function createCommitDateList({
   commitsPerDay,
+  frequency = 100,
   startDate,
   endDate,
   distribution
@@ -196,146 +199,149 @@ function createCommitDateList({
   let currentDate = startDate;
 
   while (currentDate <= endDate) {
-    // Get number of commits for this day based on the selected distribution
-    let n = getCommitsForDay(currentDate, commitsPerDay, distribution);
+    // Apply frequency - randomly skip some days based on the frequency percentage
+    if (Math.random() * 100 <= frequency) {
+      // Get number of commits for this day based on the selected distribution
+      let n = getCommitsForDay(currentDate, commitsPerDay, distribution);
 
-    for (let i = 0; i < n; i++) {
-      // Create a time distribution based on the selected pattern
-      let hour;
+      for (let i = 0; i < n; i++) {
+        // Create a time distribution based on the selected pattern
+        let hour;
 
-      if (distribution === "workHours") {
-        // Work hours distribution: more commits during 9am-5pm
-        const hourDistribution = [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          1,
-          3,
-          8,
-          12,
-          15, // 0-11
-          15,
-          14,
-          12,
-          10,
-          8,
-          5,
-          2,
-          1,
-          0,
-          0,
-          0,
-          0 // 12-23
-        ];
+        if (distribution === "workHours") {
+          // Work hours distribution: more commits during 9am-5pm
+          const hourDistribution = [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            3,
+            8,
+            12,
+            15, // 0-11
+            15,
+            14,
+            12,
+            10,
+            8,
+            5,
+            2,
+            1,
+            0,
+            0,
+            0,
+            0 // 12-23
+          ];
 
-        // Weighted random selection of hour
-        const totalWeight = hourDistribution.reduce(
-          (sum, weight) => sum + weight,
-          0
-        );
-        let random = Math.random() * totalWeight;
+          // Weighted random selection of hour
+          const totalWeight = hourDistribution.reduce(
+            (sum, weight) => sum + weight,
+            0
+          );
+          let random = Math.random() * totalWeight;
 
-        for (hour = 0; hour < 24; hour++) {
-          random -= hourDistribution[hour];
-          if (random <= 0) break;
+          for (hour = 0; hour < 24; hour++) {
+            random -= hourDistribution[hour];
+            if (random <= 0) break;
+          }
+        } else if (distribution === "afterWork") {
+          // After work hours distribution: more commits in evenings and early morning
+          const hourDistribution = [
+            3,
+            2,
+            1,
+            0,
+            0,
+            0,
+            1,
+            2,
+            2,
+            2,
+            1,
+            1, // 0-11
+            1,
+            1,
+            1,
+            2,
+            3,
+            5,
+            10,
+            15,
+            18,
+            15,
+            10,
+            5 // 12-23
+          ];
+
+          // Weighted random selection of hour
+          const totalWeight = hourDistribution.reduce(
+            (sum, weight) => sum + weight,
+            0
+          );
+          let random = Math.random() * totalWeight;
+
+          for (hour = 0; hour < 24; hour++) {
+            random -= hourDistribution[hour];
+            if (random <= 0) break;
+          }
+        } else {
+          // More realistic hour distribution: more commits during work hours
+          const hourDistribution = [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            2,
+            5,
+            8,
+            10,
+            12, // 0-11
+            10,
+            15,
+            18,
+            16,
+            12,
+            8,
+            5,
+            3,
+            2,
+            2,
+            1,
+            1 // 12-23
+          ];
+
+          // Weighted random selection of hour
+          const totalWeight = hourDistribution.reduce(
+            (sum, weight) => sum + weight,
+            0
+          );
+          let random = Math.random() * totalWeight;
+
+          for (hour = 0; hour < 24; hour++) {
+            random -= hourDistribution[hour];
+            if (random <= 0) break;
+          }
         }
-      } else if (distribution === "afterWork") {
-        // After work hours distribution: more commits in evenings and early morning
-        const hourDistribution = [
-          3,
-          2,
-          1,
-          0,
-          0,
-          0,
-          1,
-          2,
-          2,
-          2,
-          1,
-          1, // 0-11
-          1,
-          1,
-          1,
-          2,
-          3,
-          5,
-          10,
-          15,
-          18,
-          15,
-          10,
-          5 // 12-23
-        ];
 
-        // Weighted random selection of hour
-        const totalWeight = hourDistribution.reduce(
-          (sum, weight) => sum + weight,
-          0
+        const dateWithHours = setHours(currentDate, hour);
+        const dateWithHoursAndMinutes = setMinutes(
+          dateWithHours,
+          getRandomIntInclusive(0, 59)
         );
-        let random = Math.random() * totalWeight;
-
-        for (hour = 0; hour < 24; hour++) {
-          random -= hourDistribution[hour];
-          if (random <= 0) break;
-        }
-      } else {
-        // More realistic hour distribution: more commits during work hours
-        const hourDistribution = [
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          2,
-          5,
-          8,
-          10,
-          12, // 0-11
-          10,
-          15,
-          18,
-          16,
-          12,
-          8,
-          5,
-          3,
-          2,
-          2,
-          1,
-          1 // 12-23
-        ];
-
-        // Weighted random selection of hour
-        const totalWeight = hourDistribution.reduce(
-          (sum, weight) => sum + weight,
-          0
+        const commitDate = setSeconds(
+          dateWithHoursAndMinutes,
+          getRandomIntInclusive(0, 59)
         );
-        let random = Math.random() * totalWeight;
 
-        for (hour = 0; hour < 24; hour++) {
-          random -= hourDistribution[hour];
-          if (random <= 0) break;
-        }
+        commitDateList.push(commitDate);
       }
-
-      const dateWithHours = setHours(currentDate, hour);
-      const dateWithHoursAndMinutes = setMinutes(
-        dateWithHours,
-        getRandomIntInclusive(0, 59)
-      );
-      const commitDate = setSeconds(
-        dateWithHoursAndMinutes,
-        getRandomIntInclusive(0, 59)
-      );
-
-      commitDateList.push(commitDate);
     }
     currentDate = addDays(currentDate, 1);
   }

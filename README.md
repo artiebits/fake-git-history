@@ -29,14 +29,24 @@ If you rely on this tool and find it useful, please consider supporting it. Main
 
 ## Customizations
 
-### `--commitsPerDay`
+### `--preview`
 
-Specify the number of commits to be created for each day.
-The default value is `0,3`, which means it will randomly generate from 0 to 3 commits per day. For example, to generate commits randomly between 0 and 5 per day, you can do:
+If you want to preview the activity graph before creating any commits, use the `--preview` flag:
 
 ```shell script
-npx fake-git-history --commitsPerDay "0,5"
+npx fake-git-history --preview
 ```
+
+### `--frequency`
+
+Control the chance (0-100%) of generating commits for each day. This makes your activity graph look more random and realistic.
+The default value is `80`, which means commits will be generated for 80% of the days in the date range. Setting a lower value will randomly skip some days:
+
+```shell script
+npx fake-git-history --frequency 50
+```
+
+This will generate commits for approximately 5s0% of the days in your date range, making the pattern look more natural.
 
 ### `--distribution`
 
@@ -58,18 +68,10 @@ For an evening/weekend coder pattern:
 npx fake-git-history --distribution afterWork
 ```
 
-### `--preview`
-
-If you want to preview the activity graph before creating any commits, use the `--preview` flag:
-
-```shell script
-npx fake-git-history --preview
-```
-
 You can combine this with other options:
 
 ```shell script
-npx fake-git-history --preview --distribution workHours --commitsPerDay "1,5"
+npx fake-git-history --preview --distribution workHours --commitsPerDay "1,5" --frequency 80
 ```
 
 ### `--startDate` and `--endDate`
@@ -79,6 +81,15 @@ However, if you want to generate activity for specific dates, use these options:
 
 ```shell script
 npx fake-git-history --startDate "2020/09/01" --endDate "2020/09/30"
+```
+
+### `--commitsPerDay`
+
+Specify the number of commits to be created for each day.
+The default value is `0,3`, which means it will randomly generate from 0 to 3 commits per day. For example, to generate commits randomly between 0 and 5 per day, you can do:
+
+```shell script
+npx fake-git-history --commitsPerDay "0,5"
 ```
 
 ## PS
