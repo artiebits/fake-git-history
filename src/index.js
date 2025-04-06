@@ -15,7 +15,8 @@ const {
 const chalk = require("chalk");
 const ora = require("ora");
 const boxen = require("boxen");
-const { generateActivityVisualization } = require("./visualization");
+// Import visualization function
+const generateActivityVisualization = require("./visualization");
 
 module.exports = function({
   commitsPerDay,

@@ -1,26 +1,17 @@
 const chalk = require("chalk");
-const {
-  format,
-  getDay,
-  getMonth,
-  getYear,
-  addDays,
-  differenceInDays,
-  isSameDay,
-  isWeekend
-} = require("date-fns");
+const { format, getDay, differenceInDays, addDays } = require("date-fns");
 
 /**
- * Generate an ASCII visualization of the git activity graph
- * @param {Date[]} commitDates - Array of commit dates
- * @param {Date} startDate - Start date of the visualization
- * @param {Date} endDate - End date of the visualization
- * @returns {string} ASCII representation of the activity graph
+ * Generate a visualization of the activity graph
+ * @param {Array} commitDateList - List of commit dates
+ * @param {Date} startDate - Start date
+ * @param {Date} endDate - End date
+ * @returns {String} - Visualization of the activity graph
  */
-function generateActivityVisualization(commitDates, startDate, endDate) {
-  // Group commits by day
+function generateActivityVisualization(commitDateList, startDate, endDate) {
+  // Count commits by day
   const commitsByDay = {};
-  commitDates.forEach(date => {
+  commitDateList.forEach(date => {
     const dateKey = format(date, "YYYY-MM-DD");
     if (!commitsByDay[dateKey]) {
       commitsByDay[dateKey] = 0;
@@ -28,28 +19,37 @@ function generateActivityVisualization(commitDates, startDate, endDate) {
     commitsByDay[dateKey]++;
   });
 
-  // Generate array of all days in the interval
-  const days = [];
-  let currentDate = new Date(startDate);
-  while (currentDate <= endDate) {
-    days.push(new Date(currentDate));
-    currentDate = addDays(currentDate, 1);
-  }
-
-  // Find max commits in a day for scaling
+  // Get the max number of commits in a day
   let maxCommitsInDay = 0;
-  days.forEach(day => {
-    const dateKey = format(day, "YYYY-MM-DD");
-    const count = commitsByDay[dateKey] || 0;
+  Object.values(commitsByDay).forEach(count => {
     if (count > maxCommitsInDay) {
       maxCommitsInDay = count;
     }
   });
 
-  // Calculate how many weeks we need to display
-  const totalWeeks = Math.ceil(days.length / 7);
+  // Generate a list of all days between start and end date
+  const totalDays = differenceInDays(endDate, startDate) + 1;
+  const days = [];
+  for (let i = 0; i < totalDays; i++) {
+    days.push(addDays(startDate, i));
+  }
 
-  // Create a more GitHub-like visualization
+  // Calculate the number of weeks
+  const totalWeeks = Math.ceil(totalDays / 7);
+
+  // Track month positions for labels
+  const monthLabelPositions = [];
+  let currentMonth = null;
+  days.forEach((day, index) => {
+    const month = format(day, "MMM");
+    const week = Math.floor(index / 7);
+    if (month !== currentMonth) {
+      monthLabelPositions.push({ month, week });
+      currentMonth = month;
+    }
+  });
+
+  // Build the visualization
   const result = [];
 
   // Add a title
@@ -60,29 +60,17 @@ function generateActivityVisualization(commitDates, startDate, endDate) {
 
   // Create month labels row
   let monthRow = "     "; // Space for day labels
-  let currentMonth = -1;
-  let monthLabelPositions = [];
+  for (let i = 0; i < monthLabelPositions.length; i++) {
+    const { month, week } = monthLabelPositions[i];
 
-  days.forEach((day, index) => {
-    const month = getMonth(day);
-    const weekIndex = Math.floor(index / 7);
+    // Add the month label
+    monthRow += month;
 
-    if (month !== currentMonth) {
-      currentMonth = month;
-      const monthName = format(day, "MMM");
-      monthLabelPositions.push({ week: weekIndex, name: monthName });
-    }
-  });
-
-  // Place month names at appropriate positions
-  for (let week = 0; week < totalWeeks; week++) {
-    const monthLabel = monthLabelPositions.find(m => m.week === week);
-    if (monthLabel) {
-      monthRow += chalk.bold(monthLabel.name) + " ";
+    if (i < monthLabelPositions.length - 1) {
       // Add spaces to align with the next month or fill to the end
       const nextMonthWeek =
         monthLabelPositions.find(m => m.week > week)?.week || totalWeeks;
-      const spacesToAdd = (nextMonthWeek - week - 1) * 2;
+      const spacesToAdd = (nextMonthWeek - week - 1) * 1.7;
       monthRow += " ".repeat(spacesToAdd);
     }
   }
@@ -90,8 +78,15 @@ function generateActivityVisualization(commitDates, startDate, endDate) {
 
   // Create day rows with contribution cells
   const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  // GitHub-like intensity blocks (from empty to most filled)
-  const intensityBlocks = ["⬜", "🟩", "🟨", "🟧", "🟥"];
+
+  // GitHub-like intensity blocks using Unicode characters
+  const intensityBlocks = [
+    chalk.hex("#fdfdfd")("■"), // Empty/no commits (white square)
+    chalk.hex("#7feebb")("■"), // Few commits (light green)
+    chalk.hex("#4ac26b")("■"), // Some commits (medium green)
+    chalk.hex("#2da44e")("■"), // Many commits (darker green)
+    chalk.hex("#116329")("■") // Most commits (darkest green)
+  ];
 
   // Organize days by day of week and week number
   const calendar = Array(7)
@@ -116,79 +111,51 @@ function generateActivityVisualization(commitDates, startDate, endDate) {
 
         // If there are no commits on this day
         if (!commitsByDay[dateKey]) {
-          row += "⬜ "; // Empty square
+          row += intensityBlocks[0] + " "; // No activity square
         } else {
           // There are commits on this day
           const commitCount = commitsByDay[dateKey];
 
           // Calculate intensity level (0-4)
-          let intensityLevel = 0;
-          if (commitCount > 0) {
-            // Scale to 1-4 based on commit count relative to max
-            intensityLevel = Math.max(
-              1,
-              Math.min(4, Math.ceil((commitCount / maxCommitsInDay) * 4))
-            );
-          }
-
-          // Add the appropriate block for this day
-          row += intensityBlocks[intensityLevel] + " ";
+          const intensity = Math.min(
+            Math.ceil((commitCount / maxCommitsInDay) * 4),
+            4
+          );
+          row += intensityBlocks[intensity] + " ";
         }
       } else {
-        row += "  "; // No day in this position
+        row += "  "; // No day (outside the date range)
       }
     }
     result.push(row);
   }
 
-  // Add legend
   result.push("");
+  // Add a legend
   result.push(
-    chalk.bold("Legend: ") +
-      intensityBlocks[0] +
-      " No commits  " +
-      intensityBlocks[1] +
-      " Few  " +
-      intensityBlocks[2] +
-      " Some  " +
-      intensityBlocks[3] +
-      " Many  " +
-      intensityBlocks[4] +
-      " Most"
+    `Legend: ${intensityBlocks[0]} No commits  ${intensityBlocks[1]} Few  ${intensityBlocks[2]} Some  ${intensityBlocks[3]} Many  ${intensityBlocks[4]} Most`
   );
+  result.push("");
 
   // Add statistics
-  result.push("");
-  result.push(chalk.bold.underline("Statistics"));
-  result.push(`• ${chalk.bold("Total commits:")} ${commitDates.length}`);
+  result.push("Statistics");
+  result.push(`• Total commits: ${commitDateList.length}`);
   result.push(
-    `• ${chalk.bold("Date range:")} ${format(
-      startDate,
+    `• Date range: ${format(startDate, "YYYY-MM-DD")} to ${format(
+      endDate,
       "YYYY-MM-DD"
-    )} to ${format(endDate, "YYYY-MM-DD")}`
+    )}`
   );
+  result.push(`• Distribution: ${process.env.DISTRIBUTION || "uniform"}`);
+  result.push(`• Max commits in a day: ${maxCommitsInDay}`);
 
-  // Get distribution type from command line args
-  const distributionArg = process.argv.includes("--distribution")
-    ? process.argv[process.argv.indexOf("--distribution") + 1]
-    : process.argv.includes("-d")
-    ? process.argv[process.argv.indexOf("-d") + 1]
-    : "uniform";
-
-  result.push(`• ${chalk.bold("Distribution:")} ${distributionArg}`);
-
-  result.push(`• ${chalk.bold("Max commits in a day:")} ${maxCommitsInDay}`);
-
-  // Add a note about the preview only if we're in preview mode
-  if (process.argv.includes("--preview") || process.argv.includes("-p")) {
+  if (process.env.PREVIEW) {
     result.push("");
     result.push(
-      chalk.yellow.bold(
-        "Note: This is a preview only. No commits were created."
-      )
+      chalk.italic("Note: This is a preview only. No commits were created.")
     );
     result.push(
-      chalk.yellow(
+      chalk.italic(
         "To generate actual commits, run the command without the --preview flag."
       )
     );
@@ -197,6 +164,4 @@ function generateActivityVisualization(commitDates, startDate, endDate) {
   return result.join("\n");
 }
 
-module.exports = {
-  generateActivityVisualization
-};
+module.exports = generateActivityVisualization;

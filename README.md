@@ -12,32 +12,11 @@ A command-line tool that generates GitHub or GitLab activity graphs to make it l
    ```shell script
    npx fake-git-history
    ```
-   This command creates a my-history folder, initializes git, and generates commits with the following default settings:
+   This command creates a my-history folder and generates commits with the following default settings:
    - Date range: Last 365 days
-   - Commits per day: 0-4 random commits
-   - Frequency: 80% commits generated for approximately 80% of days
+   - Commits per day: Between 0 and 4
+   - Frequency: Commits generated for approximately 80% of days
    - Distribution: Evenly distributed throughout the day
-
-   You'll see output like this:
-   ```
-   Apr     May         Jun       Jul       Aug         Sep       Oct         Nov       Dec       Jan     
-   Sun ⬜ 🟥 ⬜ ⬜ 🟩 🟨 🟨 🟧 ⬜ 🟥 🟩 🟩 ⬜ ⬜ 🟧 🟧 ⬜ ⬜ 🟨 🟥 🟥 🟧 🟧 ⬜ 🟨 🟥 🟨 ⬜ 🟧 🟥 🟩 🟩 
-   Mon 🟨 ⬜ 🟧 ⬜ 🟩 🟨 🟧 🟨 ⬜ 🟩 🟥 🟧 ⬜ 🟨 ⬜ 🟥 ⬜ 🟥 🟨 🟥 🟧 🟥 ⬜ ⬜ 🟧 ⬜ 🟨 🟩 ⬜ 🟩 🟨 🟥 
-   Tue 🟥 ⬜ 🟨 🟩 ⬜ 🟧 🟨 🟥 🟨 ⬜ 🟩 🟧 🟧 ⬜ 🟩 🟥 🟥 ⬜ 🟧 🟩 🟥 ⬜ ⬜ 🟧 ⬜ 🟨 🟥 ⬜ ⬜ 🟨 🟩 ⬜ 
-   Wed ⬜ 🟧 🟥 🟥 🟥 🟧 🟥 🟨 ⬜ ⬜ 🟨 ⬜ 🟩 ⬜ ⬜ 🟨 🟩 🟩 🟨 🟩 ⬜ 🟩 ⬜ ⬜ 🟥 🟧 🟥 ⬜ ⬜ ⬜ 🟥 🟩 
-   Thu 🟧 🟧 ⬜ 🟩 ⬜ ⬜ 🟨 🟥 🟧 🟩 🟩 ⬜ 🟧 ⬜ ⬜ 🟧 🟥 🟥 ⬜ 🟩 🟥 ⬜ 🟧 ⬜ ⬜ ⬜ ⬜ 🟧 🟧 🟧 🟧 ⬜ 
-   Fri 🟩 ⬜ 🟨 ⬜ 🟨 🟧 ⬜ 🟩 🟨 ⬜ 🟥 🟥 🟨 ⬜ 🟨 🟨 ⬜ 🟧 🟩 ⬜ 🟧 🟩 🟧 ⬜ 🟨 🟧 🟨 ⬜ 🟧 ⬜ 🟧 🟩 
-   Sat 🟥 ⬜ 🟥 🟩 ⬜ ⬜ 🟧 🟨 🟥 🟧 🟩 ⬜ ⬜ ⬜ ⬜ 🟧 🟨 ⬜ 🟨 🟨 🟩 🟩 🟨 🟥 ⬜ 🟧 🟧 🟥 🟨 🟧 ⬜ 🟧 
-
-   Legend: ⬜ No commits  🟩 Few  🟨 Some  🟧 Many  🟥 Most
-
-   Statistics
-   • Total commits: 644
-   • Date range: 2024-04-05 to 2025-04-05
-   • Distribution: uniform
-   • Max commits in a day: 4
-   ```
-
 3. Create [a private repository](https://github.com/new) called `my-history` in your GitHub or GitLab, and push the changes:
    ```shell script
    cd my-history
@@ -96,20 +75,7 @@ For a typical work schedule pattern that shows more activity during weekdays:
 npx fake-git-history --distribution workHours --preview
 ```
 
-Notice how Tuesday-Thursday have the most activity, while weekends are mostly empty:
-
-```
-     Apr     May         Jun       Jul       Aug         Sep       Oct     
-Sun ⬜ ⬜ ⬜ ⬜ 🟩 ⬜ 🟩 ⬜ ⬜ ⬜ 🟩 ⬜ 🟩 🟩 ⬜ ⬜ ⬜ ⬜ 🟨 🟩 ⬜ ⬜ ⬜ ⬜ ⬜ ⬜ ⬜ 
-Mon ⬜ 🟧 ⬜ ⬜ 🟨 ⬜ 🟩 ⬜ ⬜ ⬜ 🟥 🟩 ⬜ 🟩 🟨 🟩 ⬜ 🟧 🟨 ⬜ 🟨 ⬜ 🟧 🟩 ⬜ ⬜ 🟩 
-Tue 🟨 🟧 🟥 ⬜ 🟨 🟨 🟧 🟧 🟩 🟨 🟧 🟧 ⬜ ⬜ ⬜ 🟥 ⬜ 🟩 🟧 🟨 🟥 ⬜ 🟥 🟥 🟧 🟧 🟨 
-Wed ⬜ 🟨 ⬜ ⬜ ⬜ ⬜ 🟨 ⬜ 🟧 🟧 🟨 ⬜ 🟥 🟥 🟥 🟩 🟧 🟨 ⬜ 🟧 ⬜ 🟩 ⬜ 🟧 🟧 🟨 🟨 
-Thu 🟧 ⬜ 🟧 🟩 🟧 🟨 ⬜ 🟧 🟩 🟩 🟥 ⬜ 🟧 🟨 🟧 🟧 🟥 🟨 🟧 🟨 ⬜ 🟧 🟨 🟧 🟥 🟧 🟨 
-Fri ⬜ 🟨 ⬜ 🟧 ⬜ ⬜ ⬜ 🟩 ⬜ 🟨 ⬜ ⬜ 🟩 🟨 🟨 🟧 ⬜ 🟩 🟨 ⬜ 🟩 🟧 ⬜ ⬜ ⬜ 🟩 🟨 
-Sat ⬜ ⬜ ⬜ ⬜ ⬜ ⬜ ⬜ ⬜ 🟨 ⬜ ⬜ 🟨 🟩 ⬜ ⬜ ⬜ ⬜ 🟩 ⬜ ⬜ ⬜ 🟩 ⬜ ⬜ 🟩 ⬜ ⬜ 
-
-Legend: ⬜ No commits  🟩 Few  🟨 Some  🟧 Many  🟥 Most
-```
+Days between Tuesday and Thursday will have the most activity, while weekends will be mostly empty.
 
 #### After Work Pattern
 
@@ -119,20 +85,7 @@ For an evening/weekend coder pattern that shows more activity during off-hours:
 npx fake-git-history --distribution afterWork --preview
 ```
 
-Saturday and Sunday have the most activity, with Friday evenings also showing higher commit counts:
-
-```
-     Apr     May         Jun       Jul       Aug         Sep       Oct     
-Sun 🟥 🟨 🟨 🟩 🟧 🟩 🟧 🟧 🟥 🟧 🟧 ⬜ 🟧 🟨 🟨 🟥 ⬜ ⬜ 🟩 🟨 🟨 🟨 🟩 🟥 🟨 ⬜ 🟧 
-Mon 🟧 🟨 🟩 🟧 ⬜ 🟧 🟧 ⬜ 🟩 ⬜ 🟨 🟨 🟩 ⬜ 🟨 🟨 🟩 🟨 🟧 🟨 🟨 🟧 🟩 🟨 🟨 🟨 🟨 
-Tue 🟧 🟨 🟩 🟩 🟨 ⬜ ⬜ 🟩 🟨 ⬜ ⬜ 🟩 ⬜ ⬜ 🟩 🟩 ⬜ 🟨 🟩 🟧 🟩 🟨 🟨 ⬜ ⬜ ⬜ 🟨 
-Wed ⬜ 🟨 ⬜ ⬜ 🟩 🟩 🟨 🟩 🟨 ⬜ ⬜ 🟩 🟩 🟩 🟩 ⬜ 🟩 🟨 🟩 ⬜ ⬜ ⬜ 🟩 ⬜ 🟩 🟩 ⬜ 
-Thu 🟨 🟨 ⬜ 🟨 ⬜ 🟩 🟨 🟨 🟩 ⬜ 🟩 🟨 🟧 🟧 ⬜ ⬜ 🟩 🟨 🟨 ⬜ 🟨 🟩 ⬜ ⬜ 🟧 ⬜ 🟨 
-Fri 🟧 🟨 🟩 🟨 ⬜ ⬜ 🟨 🟨 ⬜ 🟩 🟩 ⬜ 🟨 🟨 🟩 🟧 🟩 ⬜ 🟩 🟧 ⬜ ⬜ 🟨 🟩 🟨 ⬜ 🟨 
-Sat 🟩 🟨 🟧 ⬜ 🟥 🟨 🟨 ⬜ 🟧 🟧 🟧 🟥 ⬜ 🟧 🟨 ⬜ 🟨 🟨 🟥 🟧 ⬜ ⬜ 🟥 ⬜ 🟨 🟨 🟧 
-
-Legend: ⬜ No commits  🟩 Few  🟨 Some  🟧 Many  🟥 Most
-```
+Saturday and Sunday will have the most activity, with Friday evenings also showing higher commit counts.
 
 ### `--startDate` and `--endDate`
 
