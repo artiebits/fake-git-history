@@ -12,16 +12,12 @@ A command-line tool that generates GitHub or GitLab activity graphs to make it l
    ```shell script
    npx fake-git-history
    ```
-   This command creates a my-history folder and generates commits with the following default settings:
-   - Date range: Last 365 days
-   - Commits per day: Between 0 and 4
-   - Frequency: Commits generated for approximately 80% of days
-   - Distribution: Evenly distributed throughout the day
-3. Create [a private repository](https://github.com/new) called `my-history` in your GitHub or GitLab, and push the changes:
+3. Create [a private repository](https://github.com/new) called `my-history` in your GitHub or GitLab.
+4. Push the changes:
    ```shell script
    cd my-history
    git remote add origin git@github.com:<USERNAME>/my-history.git
-   git push -u origin master
+   git push -u origin main
    ```
 
 Done! Now take a look at your GitHub profile 😉
