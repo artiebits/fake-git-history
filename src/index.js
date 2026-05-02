@@ -18,6 +18,24 @@ const boxen = require("boxen");
 // Import visualization function
 const generateActivityVisualization = require("./visualization");
 
+// Define messages
+const commitMessages = [
+  "Fix bug",
+  "Update dependencies",
+  "Adjust config",
+  "Tweak UI",
+  "Minor changes",
+  "Cleanup code",
+  "Refactor logic",
+  "Sync with main",
+  "Patch issue",
+  "Improve performance"
+];
+
+function getRandomCommitMessage() {
+  return commitMessages[Math.floor(Math.random() * commitMessages.length)];
+}
+
 module.exports = function({
   commitsPerDay,
   frequency,
@@ -77,7 +95,14 @@ module.exports = function({
 
       await execAsync(`echo "${date}" > foo.txt`);
       await execAsync(`git add .`);
-      await execAsync(`git commit --quiet --date "${date}" -m "fake commit"`);
+
+      // Get a random commit message
+      const commitMessage = getRandomCommitMessage();
+
+      // Use both GIT_AUTHOR_DATE and GIT_COMMITTER_DATE to ensure correct display on GitHub
+      const gitCommitCommand = `GIT_AUTHOR_DATE="${date}" GIT_COMMITTER_DATE="${date}" git commit --quiet -m "${commitMessage}"`;
+
+      await execAsync(gitCommitCommand);
     }
 
     spinner.succeed();
