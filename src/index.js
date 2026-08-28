@@ -77,7 +77,13 @@ module.exports = function({
 
       await execAsync(`echo "${date}" > foo.txt`);
       await execAsync(`git add .`);
-      await execAsync(`git commit --quiet --date "${date}" -m "fake commit"`);
+      await execAsync(`git commit --quiet --date "${date}" -m "fake commit"`, {
+        env: {
+          ...process.env,
+          GIT_AUTHOR_DATE: String(date),
+          GIT_COMMITTER_DATE: String(date)
+        }
+      });
     }
 
     spinner.succeed();

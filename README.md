@@ -22,6 +22,18 @@ A command-line tool that generates GitHub or GitLab activity graphs to make it l
 
 Done! Now take a look at your GitHub profile 😉
 
+GitHub and GitLab contribution graphs use the **committer date**, not only the author date. This tool sets both, so activity in older years (for example 2022-2025) shows up on your profile. The graph on your profile homepage still shows only the last 12 months; use the year list on the left to see earlier years.
+
+Your Git `user.email` must also match an email on your GitHub or GitLab account, or the squares will stay empty.
+
+If you already generated commits and only the current year showed up, rewrite the committer dates and force-push:
+
+```shell script
+cd my-history
+FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --env-filter 'export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"' -- --all
+git push --force
+```
+
 ## Support This Project
 
 If you rely on this tool and find it useful, please consider supporting it. Maintaining an open source project takes time, and a cup of coffee would be greatly appreciated!
